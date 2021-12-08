@@ -1,0 +1,44 @@
+.wrapPost {
+  width: 31%;
+  height: auto;
+  display: block;
+  margin-right: 28px;
+  margin-bottom: 28px;
+  box-sizing: border-box;
+  position: relative;
+  padding-bottom: 31%;
+  height: 0;
+}
+
+.post {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+.wrapPost:nth-child(3n) {
+  margin-right: 0px;
+}
+
+@media screen and (max-width: 815px) {
+  .wrapPost {
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: 32.9%;
+    padding-bottom: 32.9%;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .wrapPost {
+    width: 32.6%;
+    padding-bottom: 32.6%;
+  }
+}
