@@ -1,0 +1,152 @@
+$gray: #FAFAFA;
+$fontGray: #8E8E8E;
+$borderGray: #DBDBDB;
+$blue: #0096F6;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.signUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: $gray;
+  .signUpMajor {
+    width: 454px;
+    height: 618px;
+    margin-right: 20px;
+    transform: scale(0.9);
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .signUpInputBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 348px;
+    height: 714px;
+    box-sizing: border-box;
+    position: relative;
+    .inputBox {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: 480px;
+      box-sizing: border-box;
+      border: 1px solid $borderGray;
+      position: relative;
+      .logo {
+        width: 175px;
+        height: 51px;
+        margin: 26px 86.5px 12px 86.5px;
+        position: relative;
+        transform: translateX(-20px);
+        .img {
+          width: 454px;
+          height: 618px;
+          margin-top: 15px;
+        }
+      }
+      .note {
+        font-weight: 600;
+        font-size: 17px;
+        color: $fontGray;
+        margin-top: 15px;
+      }
+      input {
+        width: 250px;
+        height: 20px;
+        padding: 9px 8px 7px 8px;
+        background-color: $gray;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid $borderGray;
+      }
+      .userEmail {
+        margin-top: 25px;
+      }
+      .signUpBtn {
+        width: 268px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: $blue;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        &:disabled {
+          opacity: 0.5;
+          cursor: auto;
+        }
+      }
+      .userPassword {
+        margin-bottom: 25px;
+      }
+      .policy {
+        width: 268px;
+        height: 32px;
+        margin: 15px 40px;
+        font-size: 14px;
+        color: $fontGray;
+        .bold {
+          font-weight: 600;
+        }
+      }
+    }
+    .signUpBox {
+      background-color: white;
+      width: 100%;
+      height: 48px;
+      border: 1px solid $borderGray;
+      margin-top: 15px;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      a {
+        text-decoration: none;
+      }
+      span {
+        color: $blue
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+    .downloadBtnsScript {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .downloadBtns {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      img {
+        width: 140px;
+        height: 40px;
+        border-radius: 5px;
+      }
+    }
+    
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .signUpMajor {
+    display: none;
+  }
+}

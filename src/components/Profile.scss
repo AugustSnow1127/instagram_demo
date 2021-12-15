@@ -349,9 +349,15 @@ html, body{
   }
 }
 
+@media screen and (max-width: 1036px) {
+  .logo {
+    margin-left: 15px;
+  }
+}
+
 @media screen and (max-width: 615px) {
   $mainWidth: 100%;
-  .mainBar, .contents{
+  .mainBar, .contents {
     width: $mainWidth;
   }
 }

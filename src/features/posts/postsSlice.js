@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from "axios";
 
-const apiForPosts = 'http://localhost:3001';
+const apiForPosts = 'http://localhost:3000/posts';
 
 const initialState = {
   posts: [],
@@ -9,16 +9,17 @@ const initialState = {
   error: null,
 }
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await axios.get(apiForPosts);
-  console.log(response.data);
-  return response.data
-})
+export const fetchPosts = createAsyncThunk(
+  'posts/fetchPosts', 
+    async () => {
+    const response = await axios.get(apiForPosts);
+    return response.data
+  }
+)
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   async (initialPost) => {
-    console.log(initialPost)
     const response = await axios.post(apiForPosts, initialPost)
     return response.data
   }

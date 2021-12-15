@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 
-import { AddPost } from './components/AddPost'
+import { AddPost } from './components/AddPost';
+import { SignUp } from './components/SignUp';
+import { Login } from './components/Login';
 import {
   BrowserRouter as Router,
   Routes,
@@ -27,6 +29,22 @@ export default function App() {
               element={
                 <React.Fragment>
                   <AddPost />
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="/signUp"
+              element={
+                <React.Fragment>
+                  <SignUp />
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <React.Fragment>
+                  <Login />
                 </React.Fragment>
               }
             />
