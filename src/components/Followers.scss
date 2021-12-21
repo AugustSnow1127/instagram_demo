@@ -1,0 +1,112 @@
+$gray: #DBDBDB;
+
+.fansBg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0,0,0,0.9);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.fakeMainPage {
+  width: 100%;
+  height: 100%;
+}
+
+.fans {
+  width: 400px;
+  height: 400px;
+  border-radius: 20px;
+  border: 1px solid $gray;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  .fansTop {
+    width: 100%;
+    height: 43px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid $gray;
+    h1 {
+      height: 100%;
+      width: 304px;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg {
+      position: absolute;
+      right: 15px;
+    }
+    .goBackward {
+      cursor: pointer;
+    }
+  }
+  .fansBtm {
+    display: flex;
+    flex-direction: column;
+    .fan {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      position: relative;
+      .fanLeft {
+        width: 43px;
+        height: 38px;
+        margin-right: 9px;
+        .fanHeader {
+          width: 38px;
+          height: 38px;
+          border-radius: 50px;
+          background-color: gray;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .fanRight {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        a {
+          color: black;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        .fanFullName {
+          font-weight: 600;
+          font-size: 14px;
+          font-family: Helvetica;
+        }
+        .fanUserName {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;
+          color: rgba(142,142,142);
+        }
+        .cancelSub {
+          position: absolute;
+          right: 15px;
+          background-color: white;
+          border-radius: 5px;
+          border: 1px solid $gray;
+          padding: 5px 9px;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

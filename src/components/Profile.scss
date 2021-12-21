@@ -17,6 +17,10 @@ html, body{
   box-sizing: border-box;
 }
 
+.profileBg {
+  position: relative;
+  z-index: 1;
+}
 .navbar {
   height: 54px;
   width: 100%;
@@ -61,6 +65,9 @@ html, body{
   padding: 10px;
   position: absolute;
   right: 0;
+  .home, .msg, .trend, .like {
+    cursor: not-allowed;
+  }
 }
 .navBtn {
   width: 21px;
@@ -145,11 +152,16 @@ html, body{
     .profileData {
       flex: 1;
       display: flex;
+      a {
+        text-decoration: none;
+        color: black;
+      }
       div {
         margin-right: 40px;
       }
       .statistic {
         font-weight: 600;
+        cursor: pointer;
       }
     }
     .profileInfo {

@@ -1,83 +1,66 @@
 import "./Profile.scss"
-import axios from "axios";
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Posts } from './Posts.js'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchProfile } from '../features/profile/profileSlice'
 
-export default function Profile() {
-  const requestForProfile = axios.get('http://localhost:3000/profile');
-  const requestForPosts = axios.get('http://localhost:3000/posts');
+export default function Profile () {
+  const { userFullName } = useParams();
+  const dispatch = useDispatch()
+
+  const loginingUser = useSelector(state => state.profile.logining)
+  const userProfile = useSelector(state =>
+    state.profile.profile.find(pf => pf.fullname === userFullName)
+  )
+  const profileStatus = useSelector(state => state.profile.status)
+  const error = useSelector((state) => state.profile.error)
+
+  const posts = useSelector(state =>
+    state.posts.posts.filter(post => post.fullname === userFullName)
+  )
+  const postsNum = posts.length
 
   // profile state
-  const [fullName, setFullName] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [profilePicUrl, setProfilePicUrl] = useState(null);
-  const [followerCount, setFollowerCount] = useState(null);
-  const [followingCount, setFollowingCount] = useState(null);
-  const [biography, setBiography] = useState(null);
-  const [career, setCareer] = useState(null);
-
-  // posts state
-  const [postsData, setPostsData] = useState([]);
-  // const [postsList, setPostsList] = useState(null);
-  const [postsNum, setPostsNum] = useState(0);
-  const postsRef = useRef(postsData);
-  
-  const fetchData = useCallback(() => {
-    axios
-      .all([requestForProfile, requestForPosts])
-        .then(
-          axios.spread((...res) => {
-            // set profile data
-            setFullName(res[0].data[0].fullname);
-            setUserName(res[0].data[0].username);
-            setProfilePicUrl(res[0].data[0].profile_pic_url);
-            setBiography(res[0].data[0].biography);
-            setCareer(res[0].data[0].career);
-            if (res[0].data[0].follower_count > 10000) {
-              let ts_follower_count = res[0].data[0].follower_count / 10000;
-              setFollowerCount(ts_follower_count + "萬");
-            }else {
-              setFollowerCount(res[0].data[0].follower_count);
-            }
-            if (res[0].data[0].following_count > 10000) {
-              let ts_following_count = res[0].data[0].following_count / 10000;
-              setFollowingCount(ts_following_count + "萬");
-            }else {
-              setFollowingCount(res[0].data[0].following_count);
-            }
-
-            // set post data
-            // console.log(res[1].data);
-            postsRef.current = res[1].data;
-            // console.log(postsRef.current);
-            setPostsNum(postsRef.current.length);
-            // if (postsRef.current) {
-            //   console.log(postsRef.current[0].img_url);
-            //   setPostsList(postsRef.current.map(post => (
-            //     <Posts 
-            //       id={post.id} 
-            //       src={post.img_url}
-            //     />
-            //   )));
-            // }
-          })
-        ).catch(function (error) {
-          console.error(error);
-      });
-  }, [])
+  const [fullName, setFullName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [followerCount, setFollowerCount] = useState('');
+  const [followingCount, setFollowingCount] = useState('');
+  const [biography, setBiography] = useState('');
+  const [career, setCareer] = useState('');
+  const [loginingProfilePicUrl, setLoginingProfilePicUrl] = useState('https://i04piccdn.sogoucdn.com/3f6e4e9d7ae44689');
 
   useEffect(() => {
-    let isMounted = true;
-    if (isMounted) {
-      fetchData();
+    if (profileStatus === 'idle') {
+      dispatch(fetchProfile())
     }
-    return () => { isMounted = false };
-  }, [fetchData]);
+    if (loginingUser) {
+      setLoginingProfilePicUrl(loginingUser.profile_pic_url);
+    }
+    if (userProfile) {
+      setFullName(userProfile.fullname);
+      setUserName(userProfile.username);
+      setProfilePicUrl(userProfile.profile_pic_url)
+      setBiography(userProfile.biography);
+      setCareer(userProfile.career);
+      if (userProfile.follower_count > 10000) {
+        let ts_follower_count = userProfile.follower_count / 10000;
+        setFollowerCount(ts_follower_count + "萬");
+      }else {
+        setFollowerCount(userProfile.follower_count);
+      }
+      if (userProfile.following_count > 10000) {
+        let ts_following_count = userProfile.following_count / 10000;
+        setFollowingCount(ts_following_count + "萬");
+      }else {
+        setFollowingCount(userProfile.following_count);
+      }
+    }
+  }, [profileStatus, dispatch])
 
   return (
-    <div>
+    <div class="profileBg">
       <div class="navbar">
         <div class="mainBar">
           <div class="logo">
@@ -108,7 +91,7 @@ export default function Profile() {
               </path>
             </svg>
             <Link to={`/signUp`}>
-              <img class="profileHeaderInNav navBtn" src={profilePicUrl} alt=""></img>
+              <img class="profileHeaderInNav navBtn" src={loginingProfilePicUrl} alt=""></img>
             </Link>
           </div>
         </div>
@@ -137,11 +120,15 @@ export default function Profile() {
                   <span> 貼文</span>
                 </div>
                 <div class="followers">
-                  <span class="statistic">{followerCount}</span>
+                  <Link to={'/' + fullName + `/followers`}>
+                    <span class="statistic" >{followerCount}</span>
+                  </Link>
                   <span> 位粉絲</span>
                 </div>
                 <div class="followings">
-                  <span class="statistic">{followingCount}</span>
+                  <Link to={'/' + fullName + `/followings`}>
+                    <span class="statistic">{followingCount}</span>
+                  </Link>
                   <span> 追蹤中</span>
                 </div>
               </div>
@@ -186,11 +173,15 @@ export default function Profile() {
                 <span> 貼文</span>
               </div>
               <div class="followers">
-                <span class="statistic">{followerCount}</span>
+                <Link to={'/' + fullName + `/followers`}>
+                  <span class="statistic" >{followerCount}</span>
+                </Link>
                 <span> 位粉絲</span>
               </div>
               <div class="followings">
-                <span class="statistic">{followingCount}</span>
+                <Link to={'/' + fullName + `/followings`}>
+                  <span class="statistic">{followingCount}</span>
+                </Link>
                 <span> 追蹤中</span>
               </div>
             </div>
@@ -210,7 +201,7 @@ export default function Profile() {
               <span class="category">已標注</span>
             </span>
           </div>
-          <Posts />
+          <Posts userFullName={userFullName}/>
         </div>
       </div>
       <div class="footer">

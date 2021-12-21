@@ -3,6 +3,12 @@ $fontGray: #8E8E8E;
 $borderGray: #DBDBDB;
 $blue: #0096F6;
 
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -11,6 +17,11 @@ html, body {
   position: absolute;
 }
 .login {
+  width: 100%;
+  height: 85%;
+}
+
+.loginBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +57,7 @@ html, body {
       box-sizing: border-box;
       border: 1px solid $borderGray;
       position: relative;
-      .logo {
+      .loginLogo {
         width: 175px;
         height: 51px;
         margin: 26px 86.5px 12px 86.5px;
@@ -140,6 +151,22 @@ html, body {
     }
     
   }
+}
+
+.refs {
+  @include center;
+  flex-wrap: wrap;
+  .ref {
+    margin: 0px 8px 12px 8px;
+    color: $fontGray;
+    cursor: pointer;
+    font-size: 14px;
+  }
+}
+.copyrights {
+  @include center;
+  color: $fontGray;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 900px) {

@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { Link } from 'react-router-dom'
 
 import { AddPost } from './components/AddPost';
 import { SignUp } from './components/SignUp';
@@ -8,6 +9,8 @@ import {
   Routes,
   Route,
 } from 'react-router-dom'
+import { Followers } from "./components/Followers";
+import { Followings } from "./components/Followings";
 const Profile = React.lazy(() => import("./components/Profile.js"))
 
 export default function App() {
@@ -17,10 +20,26 @@ export default function App() {
         <div className="App">
           <Routes>
             <Route
-              path="/"
+              path="/:userFullName"
               element={
                 <React.Fragment>
                   <Profile />
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="/:userFullName/followers"
+              element={
+                <React.Fragment>
+                  <Followers />
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="/:userFullName/followings"
+              element={
+                <React.Fragment>
+                  <Followings />
                 </React.Fragment>
               }
             />
@@ -45,6 +64,16 @@ export default function App() {
               element={
                 <React.Fragment>
                   <Login />
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <React.Fragment>
+                  <Link to="/login">
+                    <div>Login First</div>
+                  </Link>
                 </React.Fragment>
               }
             />
